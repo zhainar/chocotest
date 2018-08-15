@@ -66,7 +66,7 @@ class MigrationsManager
         if (!file_exists($hashpath)) {
             $migration = new $classname();
             $this->_execute($migration);
-            if (!file_put_contents($hashpath, 'OK')) {
+            if (!file_put_contents($hashpath, $filename)) {
                 $this->_revert($migration);
                 throw new \Exception("Migration {$classname} reverted. Could not create file.");
             }
