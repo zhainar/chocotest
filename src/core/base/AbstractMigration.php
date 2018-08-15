@@ -13,11 +13,11 @@ class AbstractMigration implements MigrationInterface
 {
     public function execute()
     {
-        throw new \Exception('Not implemented');
+        throw new \BadMethodCallException();
     }
     
     public function revert()
     {
-        throw new \Exception('Not implemented');
+        throw new \BadMethodCallException();
     }
 }

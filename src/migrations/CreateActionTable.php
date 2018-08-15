@@ -23,7 +23,7 @@ name varchar(255) not null,
 start_date integer unsigned not null,
 end_date integer unsigned not null,
 status enum('On', 'Off') not null
-)
+) ENGINE = INNODB
 EOL;
         Connection::instance()->query($sql);
     }

@@ -13,9 +13,24 @@ use core\base\MigrationInterface;
 
 class MigrationsManager
 {
+    /**
+     * @var string
+     */
     private $migrations_path;
+
+    /**
+     * @var string
+     */
     private $log_path;
 
+    /**
+     * @var array
+     */
+    private $migrated = [];
+
+    /**
+     * MigrationsManager constructor.
+     */
     public function __construct()
     {
         $this->migrations_path = BASEPATH . '/src/migrations';
@@ -27,6 +42,9 @@ class MigrationsManager
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function check()
     {
         foreach ((new \DirectoryIterator($this->migrations_path)) as $item) {
@@ -52,10 +70,17 @@ class MigrationsManager
                 $this->_revert($migration);
                 throw new \Exception("Migration {$classname} reverted. Could not create file.");
             }
-            echo "Migration {$filename} exists<br>";
         } else {
-            echo "Migration {$filename} exists<br>";
+            $this->migrated[] = $filename;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getMigrated()
+    {
+        return $this->migrated;
     }
 
     /**
